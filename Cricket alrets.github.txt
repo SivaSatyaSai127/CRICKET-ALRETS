@@ -1,0 +1,88 @@
+import requests
+
+class ScoreGet:
+    def __init__(self):
+        self.url_get_current_matches = "https://api.cricapi.com/v1/currentMatches"
+        self.get_score = "https://api.cricapi.com/v1/cricScore"
+        self.apikey = "When you create an account in CRICAPI apikey will be generated please enter that."
+        self.get_score_card = "https://api.cricapi.com/v1/match_scorecard"
+        self.offset = "0"
+        self.match_id = ""
+        self.status = ""
+
+
+    def get_match_id(self):
+        uri_params = {"apikey": self.apikey, "offset": self.offset}
+        resp = requests.get(self.url_get_current_matches, params=uri_params)
+        resp_dict = resp.json()
+        uid_found = 0
+        for i in resp_dict['data']:
+            if i['name'] == "Pakistan vs England, 2nd Test":
+                self.match_id = i['id']
+                self.status = i['status']
+                uid_found = 1
+                break
+        if not uid_found:
+            self.match_id = -1
+        send_data = self.get_score_current(self.match_id)
+        return send_data
+
+
+
+
+def get_score_current(self, match_id):
+    data = ""
+    #if match_id == -1:
+       # data = "No matches today"
+    #else:
+    uri_params = {"apikey": self.apikey}
+    resp = requests.get(self.get_score, params=uri_params)
+    resp_dict = resp.json()
+    for j in resp_dict['data']:
+        if j['t1'] == "India [IND]” and j['t2'] == "Bangladesh [Ban]” :
+            data = "Here the score is :\n" + j['status']+"\n" + "The score of india is:" + j['t1s'] + "\n" + "The score of Bangladesh is:" + j['t2s']
+
+    return data
+
+
+
+
+
+
+def venue(self):
+    data = ""
+    uri_params = {"apikey": self.apikey, "offset": self.offset}
+    resp = requests.get(self.url_get_current_matches, params=uri_params)
+    resp_dict = resp.json()
+    for k in resp_dict['data']:
+            if k['name'] == "Pakistan vs England, 2nd Test" and k['id'] == self.match_id:
+                 data = k['venue']
+    return data
+    def only_india(self):
+        data = ""
+        uri_params = {"apikey": self.apikey}
+        resp = requests.get(self.get_score, params=uri_params)
+        resp_dict = resp.json()
+        for h in resp_dict['data']:
+            if h['t1'] == "England [ENG]" and h['t2'] == "Pakistan [PAK]"  and h['matchType'] == "test":
+                data = "Here the score is :\n" + h['status']
+        return data
+
+
+if __name__ == "__main__":
+    obj_score = ScoreGet()
+    whatsapp_message = obj_score.get_match_id()
+    whatsapp_message_5 = "Here the match is going at the venue:"
+    whatsapp_message_2 = obj_score.venue()
+    #whatsapp_message_3 = obj_score.only_india()
+    #whatsapp_message_4 = "Only for INDIA matches:\n"
+    from twilio.rest import Client
+
+    a_side = "Enter this one from twilio when you create an account it will be generated."
+    auth_token = "Enter this token from twilio when you created account it will be generated"
+    client = Client(a_side, auth_token)
+    message_1 = client.messages.create(body=whatsapp_message_5, from_='whatsapp:+14155238886', to='whatsapp:"Give the number for which you wnat to recieve messages"')
+    message_2 = client.messages.create(body=whatsapp_message_2, from_='whatsapp:+14155238886', to='whatsapp:' )
+    message_3 = client.messages.create(body=whatsapp_message, from_='whatsapp:+14155238886', to='whatsapp:')
+    #message_4 = client.messages.create(body=whatsapp_message_4, from_='whatsapp:+14155238886', to='whatsapp:')
+    #message_5 = client.messages.create(body=whatsapp_message_3, from_='whatsapp:+14155238886', to='whatsapp:')
