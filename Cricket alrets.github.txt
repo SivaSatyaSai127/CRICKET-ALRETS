@@ -81,8 +81,8 @@ if __name__ == "__main__":
     a_side = "Enter this one from twilio when you create an account it will be generated."
     auth_token = "Enter this token from twilio when you created account it will be generated"
     client = Client(a_side, auth_token)
-    message_1 = client.messages.create(body=whatsapp_message_5, from_='whatsapp:+14155238886', to='whatsapp:"Give the number for which you wnat to recieve messages"')
-    message_2 = client.messages.create(body=whatsapp_message_2, from_='whatsapp:+14155238886', to='whatsapp:' )
-    message_3 = client.messages.create(body=whatsapp_message, from_='whatsapp:+14155238886', to='whatsapp:')
-    #message_4 = client.messages.create(body=whatsapp_message_4, from_='whatsapp:+14155238886', to='whatsapp:')
-    #message_5 = client.messages.create(body=whatsapp_message_3, from_='whatsapp:+14155238886', to='whatsapp:')
+    message_1 = client.messages.create(body=whatsapp_message_5, from_='whatsapp:"Number of twilio"', to='whatsapp:"Give the number for which you wnat to recieve messages"')
+    message_2 = client.messages.create(body=whatsapp_message_2, from_='whatsapp:"Number of twilio"', to='whatsapp:' )
+    message_3 = client.messages.create(body=whatsapp_message, from_='whatsapp:"Number of twilio"', to='whatsapp:')
+    #message_4 = client.messages.create(body=whatsapp_message_4, from_='whatsapp:"Number of twilio"', to='whatsapp:')
+    #message_5 = client.messages.create(body=whatsapp_message_3, from_='whatsapp:"Number of twilio"', to='whatsapp:')
